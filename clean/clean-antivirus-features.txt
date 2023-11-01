@@ -216,7 +216,7 @@ system should avg search shield place safety rating next to each link in your se
 system should automatically check link exchanged on facebook and myspace in real time so that you and your friend stay safe
 system should download and share file without risk of infection you are also protected when you exchange file through online chat
 system should our technical expert are available to help with any problem you might have
-system should avg s core layer of protection make sure you cant receive or unintentionally spread even the toughest threat
+system should avg s core layer of protection make sure you can t receive or unintentionally spread even the toughest threat
 system should hassle free protection that work in the background while you play game and watch movie
 system should avg s scan are even faster avg smart scanning work while you re away and run in low priority mode when you return
 system should anvi smart defender detects and stop the latest and most malicious threat attack integrating multiple guard privacy guard startup guard process guard behavior guard file guard it stop and block malware when you are surfing shopping charting socializing sharing or banking overall guard protect your pc from malware efficiently than traditional security software
@@ -307,7 +307,7 @@ system should it s pure freedom just turn autopilot on and it will run all your 
 system should scan for security hole and vulnerability with just one click bitdefender internet security check your pc for outdated and vulnerable software missing window security patch and potentially unsafe system setting and will indicate the best fix
 system should scanning compressed file zip and rar optional if you activate
 system should good accurate and method scanning
-system should fast scanning depending on your computer specification
+system should fast scanning depending on your computer spesification
 system should show all hidden folder optional if you activate
 system should log off restart shutdown and lock computer menu
 system should recover registry optional if you activate
@@ -671,7 +671,7 @@ system should it keep your child safe from cyber bullying and stop them being ex
 system should you can choose what you want to back up and how often or just set the feature to auto backup
 system should protect your computer from unwanted hacker and identity thief with this first line of defense
 system should bullguard spamfilter keep out junk mail and email scam like phishing attempt virus spreading and foreign language spam
-system should the bullguard protection software check the website that come up in your search and let you know which one are safe and caution you about those that cant be trusted
+system should the bullguard protection software check the website that come up in your search and let you know which one are safe and caution you about those that can t be trusted
 system should you ll never have to wait again to get your computer up and running bullguard s pc tune up remove unnecessary file to improve your computer s performance and free up memory so your computer run faster
 system should check your computer for out dated software that hacker and virus can exploit to gain access to your system damage it or steal personal information
 system should clear protection status of your system

@@ -2,6 +2,7 @@ import os
 import time
 import requests
 import pandas as pd
+import lxml
 from string import printable
 from bs4 import BeautifulSoup
 from selenium import webdriver
