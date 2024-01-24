@@ -9,6 +9,7 @@ import spacy
 import pandas as pd
 import numpy as np
 import os
+import math
 
 nlp = spacy.load('en_core_web_sm')
 
@@ -18,6 +19,25 @@ model_file_paths = [os.path.join(os.getcwd(), 'model', m) for m in ['model_file_
 requirement_paths = [os.path.join(os.getcwd(), 'requirement', r) for r in ['file-sharing-requirements.txt', 'antivirus-requirements.txt', 'browser-requirements.txt']]
 
 boilerplates = [os.path.join(os.getcwd(), 'boilerplate', b) for b in ['boilerplate-file-sharing.csv', 'boilerplate-antivirus.csv', 'boilerplate-browser.csv']]
+
+cluster_fit = []
+for model_path, feature_path, bl, requirement_path in zip(model_file_paths, feature_paths, boilerplates, requirement_paths):
+    print('START GENERATING REQUIREMENTS FOR {}\n'.format(model_path))
+    #features = tokenize(feature_path)
+    
+    init_cluster_size = 3
+    while init_cluster_size < 10:
+        cluster_arr, score = cluster_requirements(model_path, feature_path, init_cluster_size)
+        
+        #print(score)
+        if score > 0.3:
+            cluster_fit.append(init_cluster_size)
+        init_cluster_size += 1
+    print(cluster_fit) 
+        
+
+
+
 
 NUM_CLUSTERS = 5
 
