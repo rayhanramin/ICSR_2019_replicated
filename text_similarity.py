@@ -19,6 +19,7 @@ tfidf_vectorizer = TfidfVectorizer()
 with open(os.path.join(os.getcwd(), 'requirement','antivirus-requirements.txt')) as f:
     for generated_feature in f.readlines()[:500]:
         appended_features = [generated_feature] + all_features
+        #[generated_feature] + (should be added at the beginning of the previous line)
         tfidf_matrix = tfidf_vectorizer.fit_transform(appended_features)
         cosine_sim_scores.append(np.mean(cosine_similarity(tfidf_matrix[0:1], tfidf_matrix)))
         generated_feature = generated_feature.rstrip()

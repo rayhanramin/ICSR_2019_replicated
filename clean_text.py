@@ -10,6 +10,7 @@ file_to_write = ['clean-file-sharing-features.txt', 'clean-file-manager-features
 
 wordnet_lemmatizer = WordNetLemmatizer() # lemmatization
 
+
 for r, w in zip(file_to_read, file_to_write):
     with open(w, 'w', encoding='utf-8') as writer:
         with open(r) as reader:
