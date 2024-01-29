@@ -12,7 +12,7 @@ with open(os.path.join(os.getcwd(), 'clean', 'clean-antivirus-features.txt')) as
 
 cosine_sim_scores = []
 new_requirements = []
-
+cutoff = float(input("What is the cutoff similarity value for the newly generated requirements? "))
 
 #[:500]
 tfidf_vectorizer = TfidfVectorizer()
@@ -21,9 +21,16 @@ with open(os.path.join(os.getcwd(), 'requirement','antivirus-requirements.txt'))
         appended_features = [generated_feature] + all_features
         #[generated_feature] + (should be added at the beginning of the previous line)
         tfidf_matrix = tfidf_vectorizer.fit_transform(appended_features)
-        cosine_sim_scores.append(np.mean(cosine_similarity(tfidf_matrix[0:1], tfidf_matrix)))
-        generated_feature = generated_feature.rstrip()
-        new_requirements.append(generated_feature)
+        sim_scores = np.array(cosine_similarity(tfidf_matrix[0:1],tfidf_matrix))
+        #print(cosine_similarity(tfidf_matrix[0:1],tfidf_matrix))
+        #print(tfidf_matrix) 
+        print(sim_scores)  
+        all_less = np.all(sim_scores[1:] < cutoff)
+
+        if all_less:   
+            cosine_sim_scores.append(np.mean(cosine_similarity(tfidf_matrix[0:1], tfidf_matrix)))
+            generated_feature = generated_feature.rstrip()
+            new_requirements.append(generated_feature)
 
 
 X = np.arange(len(cosine_sim_scores))
