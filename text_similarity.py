@@ -49,17 +49,21 @@ n = int(input("How many new requierments do you want to see?"))
 pd.set_option('display.max_colwidth', None) 
 print(df.head(n))
 
-plt.figure(figsize=(8,4))
-plt.bar(X, cosine_sim_scores, width=0.3, color='#4286f4')
-plt.xlabel("generated requirement id")
-plt.ylabel("cosine similarity td-idf score")
+with open(os.path.join(os.getcwd(),'shortlisted_requirement.txt'), 'w') as writer:
+    writer.write(df.to_string())
+
+
+#plt.figure(figsize=(8,4))
+#plt.bar(X, cosine_sim_scores, width=0.3, color='#4286f4')
+#plt.xlabel("generated requirement id")
+#plt.ylabel("cosine similarity td-idf score")
 # plt.gca().axes.get_xaxis().set_visible(False)
 
-cosine_sim_scores.sort()
+#cosine_sim_scores.sort()
 
-plt.axhline(y=cosine_sim_scores[400], color='r', linestyle='-', linewidth=0.5)
-plt.tight_layout()
-plt.show()
+#plt.axhline(y=cosine_sim_scores[400], color='r', linestyle='-', linewidth=0.5)
+#plt.tight_layout()
+#plt.show()
 
 print('Finished!')
 
