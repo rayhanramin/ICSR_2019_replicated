@@ -55,7 +55,7 @@ def extract_verbs_nps_pair(sentence):
                 objects.append(obj)
                 additional_details.append(detail)
 
-                print('VERB = {} --- OBJECT = {} --- DETAILS = {}'.format(v, obj, detail))
+                #print('VERB = {} --- OBJECT = {} --- DETAILS = {}'.format(v, obj, detail))
 
                 ix += 1
                 break

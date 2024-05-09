@@ -22,7 +22,7 @@ boilerplates = [os.path.join(os.getcwd(), 'boilerplate', b) for b in ['boilerpla
 
 cluster_fit = []
 for model_path, feature_path, bl, requirement_path in zip(model_file_paths, feature_paths, boilerplates, requirement_paths):
-    print('START GENERATING REQUIREMENTS FOR {}\n'.format(model_path))
+    print('Identifying Cluster Range for {}\n'.format(model_path))
     #features = tokenize(feature_path)
     
     init_cluster_size = 3
@@ -52,49 +52,83 @@ while True:
     if NUM_CLUSTERS == 0:
         exit()
     elif NUM_CLUSTERS in range(a,b+1):
-        for model_path, feature_path, bl, requirement_path in zip(model_file_paths, feature_paths, boilerplates, requirement_paths):
-            print('START GENERATING REQUIREMENTS FOR {}\n'.format(model_path))
-            features = tokenize(feature_path)
+        type_of_selection = int(input("Press 1 for random cluster selection and 2 for regular cluster selection."))
+        if type_of_selection == 1:
+            for model_path, feature_path, bl, requirement_path in zip(model_file_paths, feature_paths, boilerplates, requirement_paths):
+                print('START GENERATING REQUIREMENTS FOR {}\n'.format(model_path))
+                features = tokenize(feature_path)
 
-            cluster_arr, score = cluster_requirements(model_path, feature_path, NUM_CLUSTERS)
-            # print(cluster_arr)
+                cluster_arr, score = cluster_requirements(model_path, feature_path, NUM_CLUSTERS)
+                # print(cluster_arr)
 
-            df = pd.read_csv(os.path.join(os.getcwd(), 'boilerplate', bl), sep=',')
-            # indexes[i] contains indices of all requirements belong to cluster (i+1)
-            indices = [np.where(cluster_arr == i) for i in range(NUM_CLUSTERS)]
-            # print(cluster_1)
-            #print(indices[0])
+                df = pd.read_csv(os.path.join(os.getcwd(), 'boilerplate', bl), sep=',')
+                # indexes[i] contains indices of all requirements belong to cluster (i+1)
+                indices = [np.where(cluster_arr == i) for i in range(NUM_CLUSTERS)]
+                # print(cluster_1)
+                #print(indices[0])
 
-            with open(requirement_path, 'w') as writer:
-                # randomly pick 3 requirements from each cluster for 10 times to make 100 x 6 = 60 requirements
-                for i in range(5):
-                    cluster1,cluster2,cluster3 = np.random.choice(range(0,NUM_CLUSTERS),size= 3)
-                    #print(cluster1,cluster2, cluster3)
-                    for cl in range(NUM_CLUSTERS):
-                        req_from_cluster_a = np.random.choice(indices[cluster1][0])
-                        req_from_cluster_b = np.random.choice(indices[cluster2][0])
-                        req_from_cluster_c = np.random.choice(indices[cluster3][0])
-                        bl_1 = df[df.id == req_from_cluster_a].head(1)
-                        bl_2 = df[df.id == req_from_cluster_b].head(1)
-                        bl_3 = df[df.id == req_from_cluster_c].head(1)
+                with open(requirement_path, 'w') as writer:
+                    # randomly pick 3 clusters and select one item from each cluster for 50 times to make 50*6 new requirements
+                    for i in range(50):
+                        cluster1,cluster2,cluster3 = np.random.choice(range(0,NUM_CLUSTERS),size= 3)
+                        #print(cluster1,cluster2, cluster3)
+                        for cl in range(NUM_CLUSTERS):
+                            req_from_cluster_a = np.random.choice(indices[cluster1][0])
+                            req_from_cluster_b = np.random.choice(indices[cluster2][0])
+                            req_from_cluster_c = np.random.choice(indices[cluster3][0])
+                            bl_1 = df[df.id == req_from_cluster_a].head(1)
+                            bl_2 = df[df.id == req_from_cluster_b].head(1)
+                            bl_3 = df[df.id == req_from_cluster_c].head(1)
 
-                        print(bl_1,bl_2,bl_3)
+                            #print(bl_1,bl_2,bl_3)
 
-                        requirements = make_requirements([bl_1, bl_2, bl_3])
-                        writer.writelines('%s\n' % r for r in requirements)
-                        
-                    #for ind in indices:
-                        #print(ind)
-                        #triple = np.random.choice(ind[0], 3)
-                        #bl_1 = df[df.id == triple[0]].head(1)
-                        #bl_2 = df[df.id == triple[1]].head(1)
-                        #bl_3 = df[df.id == triple[2]].head(1)
-                        #print(bl_1,bl_2,bl_3)
+                            requirements = make_requirements([bl_1, bl_2, bl_3])
+                            writer.writelines('%s\n' % r for r in requirements)
+                            
+                        #for ind in indices:
+                            #print(ind)
+                            #triple = np.random.choice(ind[0], 3)
+                            #bl_1 = df[df.id == triple[0]].head(1)
+                            #bl_2 = df[df.id == triple[1]].head(1)
+                            #bl_3 = df[df.id == triple[2]].head(1)
+                            #print(bl_1,bl_2,bl_3)
 
-                        #requirements = make_requirements([bl_1, bl_2, bl_3])
-                        #writer.writelines('%s\n' % r for r in requirements)
-            print('----------------END-----------------\n\n\n')
-        exit()
+                            #requirements = make_requirements([bl_1, bl_2, bl_3])
+                            #writer.writelines('%s\n' % r for r in requirements)
+                print('----------------END-----------------\n\n\n')
+            exit()
+
+        elif type_of_selection == 2:
+            for model_path, feature_path, bl, requirement_path in zip(model_file_paths, feature_paths, boilerplates, requirement_paths):
+                print('START GENERATING REQUIREMENTS FOR {}\n'.format(model_path))
+                features = tokenize(feature_path)
+
+                cluster_arr, score = cluster_requirements(model_path, feature_path, NUM_CLUSTERS)
+                # print(cluster_arr)
+
+                df = pd.read_csv(os.path.join(os.getcwd(), 'boilerplate', bl), sep=',')
+                # indexes[i] contains indices of all requirements belong to cluster (i+1)
+                indices = [np.where(cluster_arr == i) for i in range(NUM_CLUSTERS)]
+                # print(cluster_1)
+
+                with open(requirement_path, 'w') as writer:
+                    # randomly pick 3 requirements from each cluster for 10 times to make 100 x 6 = 60 requirements
+                    for i in range(100):
+                        for ind in indices:
+                            # print(ind)
+                            triple = np.random.choice(ind[0], 3)
+                            bl_1 = df[df.id == triple[0]].head(1)
+                            bl_2 = df[df.id == triple[1]].head(1)
+                            bl_3 = df[df.id == triple[2]].head(1)
+
+                            requirements = make_requirements([bl_1, bl_2, bl_3])
+                            writer.writelines('%s\n' % r for r in requirements)
+                print('----------------END-----------------\n\n\n')
+            exit()
+
+        else:
+            print("Invalid Input")
+            exit()
     else:
         print("Invalid Input")
 
