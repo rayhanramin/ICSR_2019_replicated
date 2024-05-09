@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
 
-with open(os.path.join(os.getcwd(), 'clean', 'clean-antivirus-features.txt')) as f:
+with open(os.path.join(os.getcwd(), 'clean', 'clean-browser-features.txt')) as f:
     all_features = f.readlines()
 
 
@@ -16,15 +16,15 @@ cutoff = float(input("What is the cutoff similarity value for the newly generate
 
 #[:500]
 tfidf_vectorizer = TfidfVectorizer()
-with open(os.path.join(os.getcwd(), 'requirement','antivirus-requirements.txt')) as f:
-    for generated_feature in f.readlines()[:500]:
+with open(os.path.join(os.getcwd(), 'requirement','browser-requirements.txt')) as f:
+    for generated_feature in f.readlines():
         appended_features = [generated_feature] + all_features
         #[generated_feature] + (should be added at the beginning of the previous line)
         tfidf_matrix = tfidf_vectorizer.fit_transform(appended_features)
         sim_scores = np.array(cosine_similarity(tfidf_matrix[0:1],tfidf_matrix))
         #print(cosine_similarity(tfidf_matrix[0:1],tfidf_matrix))
         #print(tfidf_matrix) 
-        print(sim_scores)  
+        #print(sim_scores)  
         all_less = np.all(sim_scores[1:] < cutoff)
 
         if all_less:   
@@ -45,12 +45,14 @@ df = pd.DataFrame(req_and_sim_scores, columns=['New Requirements','Similarity Sc
 
 #print(df)
 df = df.sort_values('Similarity Scores')
-n = int(input("How many new requierments do you want to see?"))
-pd.set_option('display.max_colwidth', None) 
-print(df.head(n))
+#n = int(input("How many new requierments do you want to see?"))
+#pd.set_option('display.max_colwidth', None) 
+#print(df.head(n))
 
-with open(os.path.join(os.getcwd(),'shortlisted_requirement.txt'), 'w') as writer:
-    writer.write(df.to_string())
+#with open(os.path.join(os.getcwd(),'shortlisted_requirement.txt'), 'w') as writer:
+#   writer.write(df.to_csv())
+
+df.to_csv('shortlisted_requirements_browser.txt', sep='\t', index=False)
 
 
 #plt.figure(figsize=(8,4))
